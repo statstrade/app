@@ -1,0 +1,13 @@
+
+<script>
+const getHandle = () => 'ExpoWebBrowserRedirectHandle';
+const getOriginUrlHandle = (hash) => `ExpoWebBrowser_OriginUrl_${hash}`;
+const getRedirectUrlHandle = (hash) => `ExpoWebBrowser_RedirectUrl_${hash}`;
+
+const handle = window.localStorage.getItem(getHandle());
+
+const url = window.location.href;
+window.localStorage.setItem(getOriginUrlHandle(handle), url);
+const parent = window.opener ?? window.parent;
+parent.postMessage({ url, expoSender: handle}, parent.location);
+</script>
